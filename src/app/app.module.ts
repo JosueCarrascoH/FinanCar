@@ -1,7 +1,6 @@
 import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule} from '@angular/router';
-import {ExcludedUsersService} from "./services/excluded_users/excluded-users.service";
 import {AuthService} from "./services/auth.service";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +19,7 @@ import { CarsComponent } from './components/cars/cars.component';
 import { CreditCheckComponent } from './components/credit-check/credit-check.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import {ExcludedUsersPrueba} from "./models/excluded_users_prueba";
 
 @NgModule({
   declarations: [
@@ -47,7 +47,7 @@ import { CommonModule } from '@angular/common';
   providers: [
     DataService,
     AuthService,
-    ExcludedUsersService
+    ExcludedUsersPrueba
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]

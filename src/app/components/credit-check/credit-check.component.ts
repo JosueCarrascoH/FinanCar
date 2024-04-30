@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {ExcludedUsersService} from "../../services/excluded_users/excluded-users.service";
 import {Excluded_users} from "../../models/excluded_users";
 import {Router} from "@angular/router";
+import {ExcludedUsersPrueba} from "../../models/excluded_users_prueba";
 
 @Component({
   selector: 'app-credit-check',
@@ -10,41 +11,40 @@ import {Router} from "@angular/router";
 })
 export class CreditCheckComponent implements OnInit{
 
+  validateDni: boolean = true;
   excludedUserDNIs: string[] = [];
   dniInput: string = '';
   message: string = '';
 
   constructor(
-    private excludedUsersService: ExcludedUsersService,
+    private ExcludedUsersPrueba: ExcludedUsersPrueba,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.excludedUsersService.getList().subscribe(
-      (data: any[]) => {
-        this.excludedUserDNIs = data.map(user => user.dni);
-      },
-      error => {
-        console.error('Error obteniendo datos de usuarios excluidos:', error);
-      }
-    );
+    this.excludedUserDNIs = this.ExcludedUsersPrueba.getDNIList();
   }
 
   checkDNILength(): boolean {
-    return this.dniInput.length === 8;
+    if (this.dniInput.length === 8) {
+      return true;
+    }
+    else
+      this.message = 'El DNI debe tener 8 dígitos.';
+      return false
   }
 
-  checkDNI() {
-    if (!this.checkDNILength()) {
-      this.message = 'El DNI debe tener 8 dígitos.';
-      return;
-    }
 
-    if (this.excludedUserDNIs.includes(this.dniInput)) {
-      this.message = 'El DNI está en la lista de usuarios excluidos.';
-    } else {
-      this.message = 'El DNI no está en la lista de usuarios excluidos.';
-      this.router.navigate(['/simulator']);
+  checkDNI() {
+    if(this.checkDNILength()) {
+      if (this.excludedUserDNIs.includes(this.dniInput)) {
+        this.message = 'El DNI está en la lista de usuarios excluidos.';
+        this.validateDni = false;
+      } else {
+        this.message = 'El DNI no está en la lista de usuarios excluidos.';
+        this.router.navigate(['/simulator']);
+      }
     }
   }
 }
+

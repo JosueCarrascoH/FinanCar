@@ -13,6 +13,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
   styleUrls: ['./data.component.css']
 })
 export class DataComponent {
+  MaxCuotas: boolean = false;
   pagos: any[] = [];
   fechaInicio: Date = new Date(); // Fecha de inicio de los pagos
   numeroCuotas: number = 0; // Número total de cuotas permitidas
@@ -62,9 +63,12 @@ export class DataComponent {
       const numeroPago = this.pagos.length + 1;
       const fechaPago = this.calcularFechaPago(numeroPago - 1);
       this.pagos.push({ numero: numeroPago, fechaPago: fechaPago, pagado: false });
-    } else if (!this.VerificarCuotas()){}
+    } else if (!this.VerificarCuotas()){
+      alert('No se pueden agregar pagos porque no solicitaste un crédito');
+    }
     else {
       alert('Ya se han agregado todas las cuotas permitidas.');
+      this.MaxCuotas = true;
     }
   }
 

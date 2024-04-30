@@ -1,0 +1,9 @@
+<div class="verification-container">
+  <h1 class="title">Verificación de DNI</h1>
+
+  <input type="text" [(ngModel)]="dniInput" placeholder="Ingrese su DNI" class="input">
+  <button (click)="checkDNI()" class="button">Verificar DNI</button>
+
+  <p class="message">{{ message }}</p>
+</div>
+

@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="sidebar ">
+    <img src="assets/img/logo.png" alt="Logo" width="100%" style="height: auto;">
+
+    <div style="display: flex; flex-direction: column; justify-content: space-between; height: 600px;">
+      <ul>
+        <li><a class="button-content" routerLink="/banks" routerLinkActive="active">
+          <mat-icon> attach_money </mat-icon>
+          <span>
+            Financieras
+          </span>
+        </a></li>
+
+        <li><a class="button-content" routerLink="/cars" routerLinkActive="active">
+          <mat-icon> equalizer </mat-icon>
+          <span style="margin-left: 5px;">
+            Autos
+          </span>
+        </a></li>
+
+        <li><a class="button-content" routerLink="/data" routerLinkActive="active">
+          <mat-icon> cloud </mat-icon>
+          <span style="margin-left: 5px;">
+            Data
+          </span>
+        </a></li>
+      </ul>
+
+      <ul>
+        <li><a class="button-content" routerLink="/profile" routerLinkActive="active">
+          <mat-icon> person </mat-icon>
+          <span style="margin-left: 5px;">
+            {{user_name}}
+          </span>
+        </a></li>
+
+        <li><a class="button-content" (click)="logout()" routerLinkActive="active">
+          <mat-icon> exit_to_app </mat-icon>
+          <span style="margin-left: 5px;">
+            Cerrar sesion
+          </span>
+        </a></li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="main-content">
+    <ng-content></ng-content>
+    <router-outlet></router-outlet>
+  </div>
+</div>

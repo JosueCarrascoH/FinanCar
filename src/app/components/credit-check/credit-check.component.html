@@ -4,6 +4,10 @@
   <input type="text" [(ngModel)]="dniInput" placeholder="Ingrese su DNI" class="input">
   <button (click)="checkDNI()" class="button">Verificar DNI</button>
 
+  <button mat-icon-button (click)="goToCarsComponent()" class="home-button">
+    <mat-icon>home</mat-icon>
+  </button>
+
   <p class="message">{{ message }}</p>
 </div>
 

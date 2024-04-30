@@ -56,7 +56,7 @@ export class SimulatorComponent{
   inmueble: number[] = [];
   degravamen: number[] = [];
 
-  constructor(private dataService: DataService, private authService: AuthService) {
+  constructor(private dataService: DataService, private authService: AuthService,     private router: Router) {
     this.currentDate = new Date().toLocaleDateString();
     this.resetArrays();
 
@@ -424,6 +424,7 @@ export class SimulatorComponent{
     this.dataService.createItem(newItem).subscribe(
       res => {
         console.log("Usuario agregado exitosamente");
+        alert("Solicito su credito correctamente");
       },
       error => {
         console.log("Ocurrió un error al agregar el usuario");
@@ -445,6 +446,7 @@ export class SimulatorComponent{
           return;
         }
         this.AgregarCredito();
+        this.router.navigate(['/data']);
       },
       error => {
         console.log("Ocurrió un error al obtener los elementos de la base de datos");
@@ -457,5 +459,8 @@ export class SimulatorComponent{
     for (let i = 0; i < this.numeroCuotas; i++) {
       this.cronograma.push(i + 1);
     }
+  }
+  goToCarsComponent():void {
+    this.router.navigate(['/cars']); // Suponiendo que la ruta al CarsComponent sea 'cars'
   }
 }

@@ -51,6 +51,7 @@ margin-bottom: 10px;
 input[type="checkbox"] {
 margin-right: 5px;
 }
+.button-margin { margin-right: 10px; }
 
 .btn {
   display: inline-block;

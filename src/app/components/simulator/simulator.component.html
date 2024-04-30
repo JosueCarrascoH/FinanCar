@@ -83,9 +83,13 @@
           <input id="periodoGraciaParcial" type="checkbox" [(ngModel)]="periodoGraciaParcial" name="periodoGracia" (ngModelChange)="togglePeriodoGracia('parcial')">
         </div>
       </div>
-
-      <button class="btn btn-primary" (click)="Operacion()" >Calcular</button>
-      <button class="btn btn-primary" (click)="SolicitarCredito()" >Solicitar Prestamo</button>
+      <div>
+      <button class="btn btn-primary button-margin" (click)="Operacion()" >Calcular</button>
+      <button class="btn btn-primary button-margin" (click)="SolicitarCredito()" >Solicitar Prestamo</button>
+      <button mat-icon-button (click)="goToCarsComponent()" class="home-button">
+        <mat-icon>home</mat-icon>
+      </button>
+      </div>
       <div class="mensaje-container" *ngIf="mensaje">{{ mensaje }}</div>
 
       <table *ngIf="mostrarTabla ">

@@ -46,5 +46,9 @@ export class CreditCheckComponent implements OnInit{
       }
     }
   }
+
+  goToCarsComponent() {
+    this.router.navigate(['/cars']); // Suponiendo que la ruta al CarsComponent sea 'cars'
+  }
 }
 

@@ -29,9 +29,16 @@ pipeline {
     stage('build') {
        steps {
           script {
-              bat 'npm run build'  
+              bat 'npm run build'
           }
        }
+    }
+  }
+  stage('deploy') {
+    steps {
+      script {
+        sh "docker run -d -p ${params.container_port}:80 --name ${params.container_name} ${params.image_name}:${params.tag_image}"
+      }
     }
   }
 }

@@ -33,13 +33,6 @@ pipeline {
           }
        }
     }
-    stage('deploy') {
-       steps {
-         bat """
-           docker run -d -p %CONTAINER_PORT%:80 --name %CONTAINER_NAME% %IMAGE_NAME%:%TAG_IMAGE%
-         """
-       }
-    }
   }
 }
 

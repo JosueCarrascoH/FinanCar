@@ -22,7 +22,8 @@ pipeline {
 
     stage('test') {
       steps {
-        bat 'npm run test'
+        bat 'npm run test --configuration=headless
+'
       }
     }
 

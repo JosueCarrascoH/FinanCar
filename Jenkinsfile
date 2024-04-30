@@ -26,29 +26,6 @@ pipeline {
       }
     }
 
-    stage('build') {
-      steps {
-        dir('frontend') {
-          script {
-            try {
-              bat 'docker stop ${container_name}'
-              bat 'docker rm ${container_name}'
-              bat 'docker rmi ${image_name}:${tag_image}'
-            } catch (Exception e) {
-              echo 'Exception occurred: ' + e.toString()
-            }
-          }
-          bat 'npm run build'
-          bat 'docker build -t ${image_name}:${tag_image} .'
-        }
-      }
-    }
-
-    stage('deploy') {
-      steps {
-        bat "docker run -d -p ${container_port}:80 --name ${container_name} ${image_name}:${tag_image}"
-      }
-    }
   }
 }
 

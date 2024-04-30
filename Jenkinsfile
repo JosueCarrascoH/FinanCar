@@ -15,7 +15,7 @@ pipeline {
   stages {
     stage('install') {
       steps {
-        git branch: 'main', url: 'https://github.com/JosueCarrascoH/Dise-oExp.git'
+        git branch: 'main', url: 'https://github.com/JosueCarrascoH/FinanCar.git.git'
         bat 'npm install'
       }
     }

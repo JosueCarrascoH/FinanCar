@@ -83,6 +83,7 @@
               "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "src/karma.conf.js",
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -92,11 +93,6 @@
               "src/styles.css"
             ],
             "scripts": []
-          },
-          "configurations": {
-            "headless": {
-              "browsers": "ChromeHeadless"
-            }
           }
         }
       }

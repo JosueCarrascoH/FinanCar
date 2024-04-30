@@ -34,11 +34,11 @@ pipeline {
        }
     }
     stage('deploy') {
-      steps {
-        script {
-          bat "docker run -d -p ${params.container_port}:80 --name ${params.container_name} ${params.image_name}:${params.tag_image}"
-        }
-      }
+       steps {
+         bat """
+           docker run -d -p %CONTAINER_PORT%:80 --name %CONTAINER_NAME% %IMAGE_NAME%:%TAG_IMAGE%
+         """
+       }
     }
   }
 }

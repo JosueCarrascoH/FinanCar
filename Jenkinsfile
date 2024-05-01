@@ -34,6 +34,11 @@ pipeline {
        }
     }
     stage('deploy') {
+       when {
+         expression {
+           currentBuild.result == 'SUCCESS'
+         }
+       }
        steps {
           script {
               bat 'ng serve'

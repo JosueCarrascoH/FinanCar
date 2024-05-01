@@ -33,6 +33,13 @@ pipeline {
           }
        }
     }
+    stage('deploy') {
+       steps {
+          script {
+              bat 'ng serve'
+          }
+       }
+    }
   }
 }
 

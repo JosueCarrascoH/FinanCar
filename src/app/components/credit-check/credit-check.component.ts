@@ -22,28 +22,32 @@ export class CreditCheckComponent implements OnInit{
   ) { }
 
   ngOnInit() {
-    this.excludedUserDNIs = this.ExcludedUsersPrueba.getDNIList();
+    this.getExcludedDnis();
   }
 
   checkDNILength(): boolean {
-    if (this.dniInput.length === 8) {
-      return true;
-    }
-    else
-      this.message = 'El DNI debe tener 8 dígitos.';
-      return false
+    return this.dniInput.length === 8;
   }
 
+  getExcludedDnis():void{
+    this.excludedUserDNIs = this.ExcludedUsersPrueba.getDNIList();
+  }
+
+  validateDNIExclusion():boolean{
+    return this.excludedUserDNIs.includes(this.dniInput)
+  }
 
   checkDNI() {
-    if(this.checkDNILength()) {
-      if (this.excludedUserDNIs.includes(this.dniInput)) {
-        this.message = 'El DNI está en la lista de usuarios excluidos.';
-        this.validateDni = false;
-      } else {
-        this.message = 'El DNI no está en la lista de usuarios excluidos.';
-        this.router.navigate(['/simulator']);
-      }
+    if (!this.checkDNILength()) {
+      this.message = 'El DNI debe tener 8 dígitos.';
+      return;     }
+
+    if (this.validateDNIExclusion()) {
+      this.message = 'El DNI está en la lista de usuarios excluidos.';
+      this.validateDni = false;
+    } else {
+      this.message = 'El DNI es válido. Puede continuar.';
+      this.router.navigate(['/simulator']);
     }
   }
 

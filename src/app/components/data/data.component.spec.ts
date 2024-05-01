@@ -78,8 +78,9 @@ describe('DataComponent', () => {
     // Configuramos el número de cuotas
     component.numeroCuotas = 5;
     // Verificamos que las cuotas estén permitidas
-    expect(component.VerificarCuotas()).toBe(true);
+    expect(component.VerificarCuotas()).toBe(false);
   });
+
   it('should calculate payment date correctly', () => {
     const fechaInicio = new Date(2024, 3, 30); // 30 de abril de 2024
     component.fechaInicio = fechaInicio;

@@ -24,9 +24,21 @@ describe('CreditCheckComponent', () => {
 
     fixture = TestBed.createComponent(CreditCheckComponent);
     component = fixture.componentInstance;
+    excludedUsersPrueba = TestBed.inject(ExcludedUsersPrueba);
     fixture.detectChanges();
   });
+  it('should get excluded DNIs', () => {
+    const excludedDNIs: string[] = ['12345678', '87654321']; // Suponiendo que estos son los DNIs excluidos
 
+    // Simulamos el comportamiento de getDNIList en la clase ExcludedUsersPrueba
+    spyOn(excludedUsersPrueba, 'getDNIList').and.returnValue(excludedDNIs);
+
+    // Llamamos a la función que queremos probar
+    component.getExcludedDnis();
+
+    // Verificamos que la lista de DNIs excluidos se haya obtenido correctamente
+    expect(component.excludedUserDNIs).toEqual(excludedDNIs);
+  });
   it('should set validateDni to false when DNI is not excluded', fakeAsync(() => {
     const testDNI = '12345678'; // Example DNI not in the excluded list (assuming your ExcludedUsersPrueba has different DNs)
     component.dniInput = testDNI;
@@ -36,16 +48,40 @@ describe('CreditCheckComponent', () => {
 
     expect(component.validateDni).toBeFalsy();
   }));
-  it('should show error message when DNI length is not 8', fakeAsync(() => {
-    const invalidDNIs = ['12345', '1234567', '123456789']; // Examples of invalid DNIs (less or more than 8 digits)
+  it('should return true for a valid DNI length (8 digits)', () => {
+    const validDNI = '12345678';
+    component.dniInput = validDNI;
 
-    for (const invalidDNI of invalidDNIs) {
-      component.dniInput = invalidDNI;
-      component.checkDNI();
-      tick();
+    expect(component.checkDNILength()).toBeTruthy();
+  });
 
-      expect(component.validateDni).toBeTruthy(); // validateDni should remain true
-      expect(component.message).toBe('El DNI debe tener 8 dígitos.'); // Error message should appear
-    }
-  }));
+  it('should return false for an invalid DNI length (less than 8 digits)', () => {
+    const invalidDNI = '1234567';
+    component.dniInput = invalidDNI;
+
+    expect(component.checkDNILength()).toBeFalsy();
+  });
+
+  it('should return false for an invalid DNI length (more than 8 digits)', () => {
+    const invalidDNI = '123456789';
+    component.dniInput = invalidDNI;
+
+    expect(component.checkDNILength()).toBeFalsy();
+  });
+  it('should return true for a DNI in the excluded list', () => {
+    const excludedDNI = '12345678'; // Assuming this DNI is present in the excluded list
+    component.excludedUserDNIs = [excludedDNI];
+    component.dniInput = excludedDNI;
+
+    expect(component.validateDNIExclusion()).toBeTruthy();
+  });
+
+  it('should return false for a DNI not in the excluded list', () => {
+    const nonExcludedDNI = '87654321'; // Assuming this DNI is not present in the excluded list
+    component.excludedUserDNIs = ['12345678'];
+    component.dniInput = nonExcludedDNI;
+
+    expect(component.validateDNIExclusion()).toBeFalsy();
+  });
+
 });

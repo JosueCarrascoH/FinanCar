@@ -397,7 +397,7 @@ export class SimulatorComponent{
       this.mostrarTabla = false;
     }
   }
-  AgregarCredito(): void{
+  prepareCreditoData(): Data {
     const monedaN = this.ontenerMoneda();
     const precioViviendaN = Number(this.precioAuto.toFixed(2));
     const cuotaInicialN = Number(this.cuotaInicial.toFixed(2));
@@ -409,7 +409,7 @@ export class SimulatorComponent{
     const cuotaN = Number(this.cuota.toFixed(2));
     const userIdN = this.authService.getUser()?.id;
 
-    const newItem = {
+    return {
       moneda: monedaN,
       precioVivienda: precioViviendaN,
       cuotaInicial: cuotaInicialN,
@@ -420,8 +420,12 @@ export class SimulatorComponent{
       periodoGraciaTotal: periodoGraciaTotalN,
       cuota: cuotaN,
       userId: userIdN
-    } as Data;
-    this.dataService.createItem(newItem).subscribe(
+    };
+  }
+  AgregarCredito(): void {
+    const creditoData = this.prepareCreditoData();  // Call the new function
+
+    this.dataService.createItem(creditoData).subscribe(
       res => {
         console.log("Usuario agregado exitosamente");
         alert("Solicito su credito correctamente");

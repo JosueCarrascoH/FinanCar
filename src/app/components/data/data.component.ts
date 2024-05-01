@@ -50,20 +50,14 @@ export class DataComponent {
   }
 
   VerificarCuotas(): boolean {
-    if (this.numeroCuotas == 0){
-      alert('No se puede agregar pagos porque no solicitaste un credito');
-      return false;
-    }
-    else {
-      return true;
-    }
+    return this.numeroCuotas == 0;
   }
   agregarPago(): void {
-    if (this.pagos.length < this.numeroCuotas && this.VerificarCuotas()) {
+    if (this.pagos.length < this.numeroCuotas && !this.VerificarCuotas()) {
       const numeroPago = this.pagos.length + 1;
       const fechaPago = this.calcularFechaPago(numeroPago - 1);
       this.pagos.push({ numero: numeroPago, fechaPago: fechaPago, pagado: false });
-    } else if (!this.VerificarCuotas()){
+    } else if (this.VerificarCuotas()){
       alert('No se pueden agregar pagos porque no solicitaste un crédito');
     }
     else {
@@ -77,7 +71,6 @@ export class DataComponent {
     fechaPago.setMonth(fechaPago.getMonth() + numeroPago);
     return fechaPago;
   }
-
 
   getNumeroCuotas(): void {
     this.dataService.getNumeroCuotas().subscribe(

@@ -48,7 +48,6 @@ export class DataComponent {
       }
     )
   }
-
   VerificarCuotas(): boolean {
     return this.numeroCuotas == 0;
   }
